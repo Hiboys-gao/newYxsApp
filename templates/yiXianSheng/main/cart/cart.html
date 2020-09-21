@@ -1,0 +1,121 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'yiXianSheng/main/cart/css/cart.css' %}">
+{% endblock %}
+
+{% block ext_js %}
+{{ block.super }}
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/cart/js/cart.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+{{ block.super }}
+    购物车
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+
+    <div id="cart">
+        <h3>cart</h3>
+
+        <div class="full">
+            <section>
+                <ul>
+                    <li>
+                        <p>姓名：{{ useranme }}</p>
+                        <p>联系方式：xxxxxx</p>
+                        <p>收货地址：xxx小区xx号楼xx室</p>
+                    </li>
+                </ul>
+
+                <div class="bill">
+                    <p>
+                        闪送超市
+                    </p>
+                    <p>0元起送，满30免运费，22:00前可送达</p>
+                    <a href="">
+                        凑单专区
+                    </a>
+                </div>
+
+                <div class="delivery">
+                    <span>收货时间</span>
+                    <span>一小时内送达</span>
+                    <a>可预订></a>
+                </div>
+
+                <div class="delivery">
+                    <span>收货备注</span>
+                    <input type="text" placeholder="可输入100字以内的要求">
+                </div>
+
+{#                菜单#}
+                <ul>
+                    {% for cart_goods in cart_goods_list %}
+                        <li>
+                            <div class="menuList">
+
+                                <div class="confirm">
+                                    <span class="chooseOne" cartid="{{ cart_goods.0.id }}">
+                                        {% if cart_goods.0.is_choose %}
+                                            <span>√</span>
+                                            {% else %}
+                                            <span></span>
+                                        {% endif %}
+                                    </span>
+                                </div>
+
+                                <a href="">
+                                    <img src="/static{{ cart_goods.1.productimg }}" alt="">
+                                    <p>
+                                        <span>{{ cart_goods.1.productlongname }}</span>
+                                    </p>
+                                    <p>
+                                        <span class="presentPrice">{{ cart_goods.1.price }}</span>
+                                    </p>
+                                </a>
+                                <section goodsid="{{ cart_goods.1.id }}">
+                                    <button class="btnReduce">
+                                        <span>-</span>
+                                    </button>
+                                     <span>{{ cart_goods.0.goods_num }}</span>
+                                    <button class="btnPlus">
+                                        <span>+</span>
+                                    </button>
+                                </section>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+{#                下单#}
+                <div class="payTheBill">
+                    <div class="confirm">
+                        <span class="chooseAll">
+                            {% if allChoose %}
+                                <span>√</span>
+                            {% else %}
+                                <span></span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <p>
+                        <span>全选</span>
+                        <span>共计：</span>
+                        <span id="total">{{ total }}</span>
+                    </p>
+                    <span id="toOrder">下单</span>
+                </div>
+            </section>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}

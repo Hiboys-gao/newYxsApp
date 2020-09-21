@@ -1,0 +1,110 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'yiXianSheng/main/market/css/market.css' %}">
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/market/js/market.js' %}"></script>
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/cart/js/cart.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    {{ block.super }}
+    闪购
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <div id="market">
+
+        {#    左侧栏#}
+        <aside>
+            <ul>
+                {% for food in foodTypes %}
+                    <li>
+                        <span {% if food.typeid == typeid %}class="yellowSlide"{% endif %}></span>
+                        <a href="{% url 'yxshome:market' %}?typeid={{ food.typeid }}">{{ food.typename }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+        {#        顶部下拉菜单#}
+        <nav>
+            <ul>
+                <li id="goods_type">
+                    <span>
+                        全部分类
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </span>
+                </li>
+                <li id="all_sort">
+                    <span>
+                        综合排序
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+
+        {#    商品展示#}
+        <section>
+            <menu>
+                <ul>
+                    {% for good in goods %}
+                        <li>
+                            <a href="">
+                                <img src="/static{{ good.productimg }}" alt="">
+                                <span class="shoppingInfo">
+                                   <h6>{{ good.productlongname }}</h6>
+                                </span>
+                                <p class="detailTag">
+                                    <span style="font-size: 3px;">精选</span>
+                                    <span style="font-size: 3px;">月售：{{ good.productnum }}</span>
+                                </p>
+                                <span class="unit">{{ good.specifics }}</span>
+                                <span class="price">
+                                    <span>￥{{ good.price }}</span>
+                                    <s>￥{{ good.marketprice }}</s>
+                                </span>
+                            </a>
+                            <section  goodsid="{{ good.id }}">
+                                <button class="reduce">-</button>
+                                <span>0</span>
+                                <button class="plus">+</button>
+                            </section>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div id="div_goods" style="display: none">
+                    <div>
+                        {% for foodType_names in foodType_names_list %}
+                            <a href="{% url 'yxshome:market' %}?childcid={{ foodType_names.1 }}&typeid={{ typeid }}&sid={{ sid }}">
+                                <span {% if foodType_names.1  ==  childcid  %} style="background-color: lightgreen;color: white;" {% endif %}>
+                                    {{ foodType_names.0 }}
+                                </span>
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div id="div_sort" style="display: none">
+                    <div>
+                        {% for sort in sort_list %}
+                            <a href="{% url 'yxshome:market' %}?sid={{ sort.sid }}&typeid={{ typeid }}&childcid={{ childcid }}" id="price_a">
+                                <span {% if sort.sid  ==  sid  %} style="background-color: lightgreen;color: white;" {% endif %}>{{ sort.name }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </menu>
+        </section>
+
+    </div>
+
+{% endblock %}

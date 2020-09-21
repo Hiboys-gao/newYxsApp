@@ -1,0 +1,41 @@
+{% extends "base_pay.html" %}
+{% load static %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'yiXianSheng/pay/css/order_detail.css' %}">
+{% endblock %}
+
+
+{% block ext_js %}
+{{ block.super }}
+    <script type="text/javascript" src="{% static 'yiXianSheng/pay/js/order.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+{{ block.super }}
+    <div class="container">
+        <p style="margin-top: 1.6rem;font-size: 0.2rem;"><a href="{% url 'yxshome:cart' %}" class="text-info"> < 返回 </a></p>
+        <p style="font-size: 0.3rem;border: 0.02rem">订单编号：{{ ordernum }}</p>
+        <p style="border-bottom: 0.1rem dashed olivedrab;font-size: 0.3rem; ">
+            收货地址：
+        </p>
+        {% for foo in order_liset %}
+            <div class="menuList">
+                <a href="">
+                    <img src="/static{{ foo.0.productimg }}" alt="">
+                    <p>{{ foo.0.productlongname }}</p>
+                    <p class="presentPrice">{{ foo.0.price }}</p>
+                </a>
+                <section>
+
+                    <span>{{ foo.1 }}</span>
+                </section>
+            </div>
+        {% endfor %}
+
+        <p class="total_price">总价：<span id="total_price">{{ totalPay }}</span></p>
+        <button class="btn btn-block bg-primary" id="payMoney">提交</button>
+    </div>
+{% endblock %}

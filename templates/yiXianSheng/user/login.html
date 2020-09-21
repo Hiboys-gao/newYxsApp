@@ -1,0 +1,52 @@
+{% extends "base_user.html" %}
+{% load static %}
+
+{% block ext_css %}
+{{ block.super }}
+    <link rel="stylesheet" href="{% static '/yiXianSheng/user/login/css/login.css' %}">
+{% endblock %}
+
+{% block ext_js %}
+{{ block.super }}
+    <script type="text/javascript" src="{% static '/yiXianSheng/user/login/js/login.js' %}"></script>
+{% endblock %}
+
+
+{% block title %}
+{{ block.super }}
+    登录
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <div id="login">
+
+
+        <span style="color: #70e81c" id="log_back"  class="btn">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </span>
+
+        <div class="container">
+            <span>{{ erro }}</span>
+            <form action="{% url 'user:login' %}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">用户名</label>
+                    <input name="name" type="text" class="form-control" id="exampleName" placeholder="请输入用户名">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" name="password" class="form-control" id="examplePassword" placeholder="请输入密码">
+                </div>
+
+                <img src="/user/checkCode/" alt="#" id="i_code">
+                <div class="form-group">
+                    <label for="exampleInputFile">验证码</label>
+                    <input type="text" name="u_code" class="form-control" placeholder="请输入验证码">
+                </div>
+
+                <button type="submit" class="btn btn-block btn-info">登录</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

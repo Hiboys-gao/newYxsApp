@@ -1,0 +1,122 @@
+{% extends "base_home.html" %}
+{% load static %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'yiXianSheng/main/home/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'yiXianSheng/main/home/css/swiper.css' %}">
+{% endblock %}
+
+{% block title %}
+{{ block.super }}
+    首页
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <div id="home">
+{#    顶端轮播#}
+        <div id="topSwiper" class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for wheel in wheels %}
+{#                    <div class="swiper-slide">#}
+                        <a class="swiper-slide" href="#">
+                            <img src="/static{{ wheel.img }}" alt="">
+                        </a>
+{#                    </div>#}
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+{#    顶端菜单#}
+        <div class="topMenu">
+            <nav>
+                <ul>
+                    {% for nav in navs %}
+                        <li>
+                            <img src="/static{{ nav.img }}" alt="">
+                            <span>{{ nav.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+{#    必买菜单#}
+        <div id="swiperMenu" class="swiper-container">
+            <ul class="swiper-wrapper">
+                {% for buy in mustBuy %}
+                    <li class="swiper-slide">
+                        <img src="/static{{ buy.img }}" alt="">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+{#    主要商品信息#}
+{#        <div id="mainInfo" class="swiper-container">#}
+        <div class="mainInfo">
+            {% for mainShow in mainShows %}
+                <section>
+                    <h3>
+                        {{ mainShow.name }}
+                        <span></span>
+                        <a href=""><span>更多></span></a>
+                    </h3>
+                    <div>
+                        <a class="" href="">
+                            <img src="/static{{ mainShow.img }}" alt="">
+                        </a>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="">
+                                <img src="/static{{ mainShow.img1 }}" alt="">
+                                <span class="description">{{ mainShow.longname1 }}</span>
+                                <span>￥{{ mainShow.price1 }}</span>
+                                <s>￥{{ mainShow.marketprice1 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="/static{{ mainShow.img2 }}" alt="">
+                                <span class="description">{{ mainShow.longname2 }}</span>
+                                <span>￥{{ mainShow.price2 }}</span>
+                                <s>￥{{ mainShow.marketprice2 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="/static{{ mainShow.img3 }}" alt="">
+                                <span class="description">{{ mainShow.longname3 }}</span>
+                                <span>￥{{ mainShow.price3 }}</span>
+                                <s>￥{{ mainShow.marketprice3 }}</s>
+                            </a>
+                            <button>
+                                <span>+</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+            {% endfor %}
+        </div>
+{#        </div>#}
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/home/js/swiper.jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/home/js/swiper.js' %}"></script>
+    <script type="text/javascript" src="{% static 'yiXianSheng/main/home/js/home.js' %}"></script>
+{% endblock %}
